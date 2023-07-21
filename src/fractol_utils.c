@@ -6,7 +6,7 @@
 /*   By: jmolenaa <jmolenaa@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/01 10:46:53 by jmolenaa      #+#    #+#                 */
-/*   Updated: 2023/03/13 07:45:13 by jmolenaa      ########   odam.nl         */
+/*   Updated: 2023/07/21 09:36:40 by jmolenaa      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exit_fractol_with_error(t_fractol *fractol, char *str)
 	mlx_delete_image(fractol->window, fractol->img);
 	mlx_close_window(fractol->window);
 	mlx_terminate(fractol->window);
-	ft_exit_with_error(str);
+	ft_exit_with_error(str, 1);
 }
 
 double	abs_val(double number)

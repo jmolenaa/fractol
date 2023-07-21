@@ -6,7 +6,7 @@
 /*   By: jmolenaa <jmolenaa@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/04 09:06:53 by jmolenaa      #+#    #+#                 */
-/*   Updated: 2023/03/13 07:45:21 by jmolenaa      ########   odam.nl         */
+/*   Updated: 2023/07/21 09:37:02 by jmolenaa      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	initialize_window(t_fractol *fract, int argc, char *argv[])
 	parse_input(argc, argv, fract);
 	fract->window = mlx_init(fract->width, fract->height, fract->title, 1);
 	if (fract->window == NULL)
-		ft_exit_with_error("failed to initiliaze window\n");
+		ft_exit_with_error("failed to initiliaze window\n", 1);
 	initialize_max_min_values(fract);
 	fract->img = mlx_new_image(fract->window, fract->width, fract->height);
 	if (fract->img == NULL)
 	{
 		mlx_close_window(fract->window);
 		mlx_terminate(fract->window);
-		ft_exit_with_error("Image allocation failure\n");
+		ft_exit_with_error("Image allocation failure\n", 1);
 	}
 	if (mlx_image_to_window(fract->window, fract->img, 0, 0) == -1)
 		exit_fractol_with_error(fract, "failed to put image on window\n");

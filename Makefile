@@ -23,37 +23,40 @@ else
 CFLAGS = -Wall -Wextra -Werror -Ofast
 endif
 
-all: $(NAME)
+all: $(LIBFT_DIR) $(NAME)
 
 $(NAME): $(MLX42_LIB) $(LIBFT) $(OBJ)
-	$(CC) $(INCLUDES) $(CFLAGS) $(MLX_FLAGS) -o $@ $(OBJ) $(LIBFT) $(MLX42_LIB)
+	@$(CC) $(INCLUDES) $(CFLAGS) $(MLX_FLAGS) -o $@ $(OBJ) $(LIBFT) $(MLX42_LIB)
 
 $(MLX42_LIB):
-	cmake -S $(MLX42_SOURCE_DIR) -B $(MLX42_BUILD_DIR)
-	cmake --build $(MLX42_BUILD_DIR) -j4
+	@cmake -S $(MLX42_SOURCE_DIR) -B $(MLX42_BUILD_DIR)
+	@cmake --build $(MLX42_BUILD_DIR) -j4
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
+
+$(LIBFT_DIR):
+	@git clone https://github.com/jmolenaa/Codam_libft.git $(LIBFT_DIR)
 
 obj/%.o: src/%.c | $(OBJ_DIR)
-	$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(INCLUDES) $(CFLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
-	mkdir $(OBJ_DIR)
+	@mkdir $(OBJ_DIR)
 
 clean:
-	rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean:
-	rm -rf $(OBJ_DIR)
-	rm -rf $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -rf $(MLX42_BUILD_DIR)
+	@rm -rf $(OBJ_DIR)
+	@rm -rf $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@rm -rf $(MLX42_BUILD_DIR)
 
 debug: fclean
-	cmake -DDEBUG=1 -S $(MLX42_SOURCE_DIR) -B $(MLX42_BUILD_DIR)
-	cmake --build $(MLX42_BUILD_DIR) -j4
-	$(MAKE) DEBUG=1 all
+	@cmake -DDEBUG=1 -S $(MLX42_SOURCE_DIR) -B $(MLX42_BUILD_DIR)
+	@cmake --build $(MLX42_BUILD_DIR) -j4
+	@$(MAKE) DEBUG=1 all
 
 re: fclean all
