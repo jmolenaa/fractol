@@ -15,12 +15,22 @@ LIBFT_DIR = libft
 # variables for compilation
 CC = cc
 INCLUDES = -iquote includes -iquote libft/includes -iquote MLX42/source/include/MLX42   
-MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
+MAC_MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw3
+LINUX_MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 # MLX_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/"
 ifdef DEBUG
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 else
 CFLAGS = -Wall -Wextra -Werror -Ofast
+endif
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	MLX_FLAGS = $(LINUX_MLX_FLAGS)
+else ifeq ($(UNAME_S), Darwin)
+	MLX_FLAGS = $(MAC_MLX_FLAGS)
+else
+	$(error OS: $(OS) is not supported!)
 endif
 
 all: $(LIBFT_DIR) $(NAME)
