@@ -18,6 +18,4 @@ Clone the project and run 'make' in the repository.
 Once compiled run the program with the name of the fractal as the argument. You can just run the program for instructions on how to use it.  
 When the window opens it will have instructions on how to use the program.
 
-## Pictures
-
 
